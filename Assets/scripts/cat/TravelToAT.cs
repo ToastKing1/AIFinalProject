@@ -10,6 +10,7 @@ namespace NodeCanvas.Tasks.Actions {
 
 		public BBParameter<Transform> sleepingSpot;
 		public BBParameter<NavMeshAgent> navAgent;
+		public GameObject text;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -22,7 +23,8 @@ namespace NodeCanvas.Tasks.Actions {
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
 			navAgent.value.SetDestination(sleepingSpot.value.position);
-			EndAction(true);
+            text.SetActive(true);
+            EndAction(true);
 		}
 
 		//Called once per frame while the action is active.

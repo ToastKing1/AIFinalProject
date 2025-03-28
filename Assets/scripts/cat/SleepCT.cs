@@ -30,7 +30,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
 			
-			if (navAgent.value.remainingDistance < 0.5f)
+			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 0.1f)
 			{
 				return true;
 			}
