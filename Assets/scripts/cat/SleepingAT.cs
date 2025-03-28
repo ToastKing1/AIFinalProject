@@ -1,5 +1,6 @@
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using TMPro;
 using UnityEngine;
 
 
@@ -9,7 +10,7 @@ namespace NodeCanvas.Tasks.Actions {
 
 		public BBParameter<bool> sleeping;
 		public GameObject dialogText;
-		public GameObject text;
+		public string text;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -22,8 +23,7 @@ namespace NodeCanvas.Tasks.Actions {
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
 			sleeping.value = true;
-			text.SetActive(true);
-			dialogText.SetActive(false);
+			dialogText.GetComponent<TextMeshPro>().text = text;
 		}
 
 		//Called once per frame while the action is active.

@@ -1,18 +1,16 @@
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 namespace NodeCanvas.Tasks.Actions {
 
-	public class TravelToAT : ActionTask {
+	public class ApproachMouseAT : ActionTask {
 
-		public BBParameter<Transform> sleepingSpot;
+
+		public BBParameter<GameObject> mouse;
 		public BBParameter<NavMeshAgent> navAgent;
-		public GameObject dialogText;
-		public string text;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -24,16 +22,13 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-			if (navAgent.value.destination != sleepingSpot.value.position)
-			{
-				navAgent.value.SetDestination(sleepingSpot.value.position);
-			}
-            dialogText.GetComponent<TextMeshPro>().text = text;
-            EndAction(true);
+			navAgent.value.SetDestination(mouse.value.transform.position);
+			EndAction(true);
 		}
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
+			
 		}
 
 		//Called when the task is disabled.
