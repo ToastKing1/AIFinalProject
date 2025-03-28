@@ -34,8 +34,15 @@ namespace NodeCanvas.Tasks.Actions {
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
-			
-            agent.transform.position += acceleration * Time.deltaTime * 3;
+
+			if (timer < jumpTime / 2)
+			{
+				agent.transform.position += acceleration * Time.deltaTime * 3;
+			}
+			else
+			{
+                agent.transform.position += acceleration * Time.deltaTime * -3;
+            }
 			
 
 			if (timer > jumpTime)

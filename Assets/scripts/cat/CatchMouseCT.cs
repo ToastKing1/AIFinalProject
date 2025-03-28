@@ -54,7 +54,8 @@ namespace NodeCanvas.Tasks.Conditions {
 
 				if (leapTimer > leapTimeLimit)
 				{
-					catching.value = true;
+                    agent.transform.position = new Vector3(agent.transform.position.x, 0f, agent.transform.position.z);
+                    catching.value = true;
 					leaping = false;
 					return true;
 				}
