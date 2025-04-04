@@ -64,6 +64,7 @@ namespace NodeCanvas.Tasks.Actions {
                 navAgent.value.enabled = true;
                 navAgent.value.isStopped = false;
                 navAgent.value.speed = 3.5f;
+                navAgent.value.acceleration = 8f;
                 animator.value.SetBool("Leaping", false);
                 EndAction(true);
             }

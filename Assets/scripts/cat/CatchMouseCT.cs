@@ -39,7 +39,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
 
-			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 3 && leaping == false && catching.value == false && windup == false)
+			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 4 && leaping == false && catching.value == false && windup == false)
 			{
 				windup = true;
                 leaping = true;
@@ -47,18 +47,10 @@ namespace NodeCanvas.Tasks.Conditions {
 
 			if (windup)
 			{
-				//navAgent.value.Move(-mouse.value.transform.position);
-				//navAgent.value.speed = -3f;
-
 				// make the cat move backwards while also looking at mouse
 				Vector3 directionFromMouse = agent.transform.position - mouse.value.transform.position;
 				Vector3 newDirection = agent.transform.position + directionFromMouse.normalized;
 				navAgent.value.SetDestination(newDirection);
-
-				//navAgent.value.updateRotation = Vector3.
-
-				
-				
 
 				windupTimer += 1 * Time.deltaTime;
 
@@ -71,10 +63,8 @@ namespace NodeCanvas.Tasks.Conditions {
                     
                 }
             }
-			Debug.Log(navAgent.value.remainingDistance);
 			if (leaping)
 			{
-
                 //update rotation
 
                 Vector3 directionFromMouse = agent.transform.position - mouse.value.transform.position;
