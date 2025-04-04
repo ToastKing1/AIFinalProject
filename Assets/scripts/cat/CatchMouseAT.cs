@@ -43,6 +43,8 @@ namespace NodeCanvas.Tasks.Actions {
 
             animator.value.SetBool("Leaping", true);
 
+			Debug.Log("leaping");
+
 			/*if (timer < jumpTime / 2)
 			{
 				agent.transform.position += acceleration * Time.deltaTime * 3;
@@ -57,7 +59,8 @@ namespace NodeCanvas.Tasks.Actions {
 
             if (timer > jumpTime)
 			{
-				chasingMouse.value = false;
+                Debug.Log("not leaping");
+                chasingMouse.value = false;
                 mouse.value.SetActive(false);
                 catching.value = false;
                 mouse.value = null;
