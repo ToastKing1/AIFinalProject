@@ -18,6 +18,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		public bool leaping;
 		public BBParameter<bool> catching;
 		public BBParameter<GameObject> mouse;
+		public BBParameter<bool> chasingMouse;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -39,7 +40,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
 
-			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 4 && leaping == false && catching.value == false && windup == false)
+			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 4f && leaping == false && catching.value == false && windup == false)
 			{
 				windup = true;
                 leaping = true;
