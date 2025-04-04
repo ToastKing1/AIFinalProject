@@ -9,7 +9,8 @@ namespace NodeCanvas.Tasks.Actions {
 	public class SleepingAT : ActionTask {
 
 		public BBParameter<bool> sleeping;
-		public GameObject dialogText;
+        public BBParameter<Animator> animator;
+        public GameObject dialogText;
 		public string text;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
@@ -22,7 +23,8 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-			sleeping.value = true;
+            animator.value.SetBool("Sleeping", true);
+            sleeping.value = true;
 			dialogText.GetComponent<TextMeshPro>().text = text;
 		}
 

@@ -11,11 +11,14 @@ namespace NodeCanvas.Tasks.Actions {
 
 		public BBParameter<GameObject> mouse;
         public BBParameter<bool> catching;
+        public BBParameter<Animator> animator;
         public BBParameter<bool> chasingMouse;
 		public BBParameter<NavMeshAgent> navAgent;
         Vector3 acceleration = new Vector3(0, 1f, 0);
 
-		public float jumpTime = 1f;
+		Vector3 leapDestination;
+
+		public float jumpTime = 0.75f;
 		float timer = 0;
 
         //Use for initialization. This is called only once in the lifetime of the task.
@@ -28,24 +31,31 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-            navAgent.value.enabled = false;
+			//navAgent.value.enabled = false;
+			leapDestination = mouse.value.transform.position;
+            navAgent.value.isStopped = false;
+            
             //agent.transform.position += acceleration * Time.deltaTime * 3;
         }
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
 
-			if (timer < jumpTime / 2)
+            animator.value.SetBool("Leaping", true);
+
+			/*if (timer < jumpTime / 2)
 			{
 				agent.transform.position += acceleration * Time.deltaTime * 3;
 			}
 			else
 			{
                 agent.transform.position += acceleration * Time.deltaTime * -3;
-            }
-			
+            }*/
+			navAgent.value.speed = 10f;
+			navAgent.value.acceleration = 80f;
+            navAgent.value.SetDestination(leapDestination);
 
-			if (timer > jumpTime)
+            if (timer > jumpTime)
 			{
 				chasingMouse.value = false;
                 mouse.value.SetActive(false);
@@ -53,6 +63,8 @@ namespace NodeCanvas.Tasks.Actions {
                 mouse.value = null;
                 navAgent.value.enabled = true;
                 navAgent.value.isStopped = false;
+                navAgent.value.speed = 3.5f;
+                animator.value.SetBool("Leaping", false);
                 EndAction(true);
             }
 
