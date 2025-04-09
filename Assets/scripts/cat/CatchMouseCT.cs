@@ -40,10 +40,15 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
 
-			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 4f && leaping == false && catching.value == false && windup == false)
+			if (catching.value)
+			{
+				return true;
+			}
+
+			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 4f && leaping == false && windup == false)
 			{
 				windup = true;
-                leaping = true;
+				leaping = true;
             }
 
 			if (windup)
@@ -61,28 +66,30 @@ namespace NodeCanvas.Tasks.Conditions {
 					windupTimer = 0f;
 					navAgent.value.isStopped = true;
 					navAgent.value.speed = 3.5f;
-                    
                 }
             }
 			if (leaping)
 			{
-                //update rotation
-
-                Vector3 directionFromMouse = agent.transform.position - mouse.value.transform.position;
-                Quaternion rotation = Quaternion.LookRotation(-directionFromMouse);
-                agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, rotation, 1f);
+				//update rotation
+				if (!catching.value)
+				{
+					Vector3 directionFromMouse = agent.transform.position - mouse.value.transform.position;
+					Quaternion rotation = Quaternion.LookRotation(-directionFromMouse);
+					agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, rotation, 1f);
+				}
 
                 //agent.transform.position = new Vector3(agent.transform.position.x, -0.2f, agent.transform.position.z);
                 animator.value.SetBool("CatchingMouse", true);
-                if (navAgent.value.remainingDistance > 9f)
+                /*if (navAgent.value.remainingDistance > 9f)
 				{
 					leaping = false;
                     leapTimer = 0;
-                }
+                }*/
 				leapTimer += 1 * Time.deltaTime;
 
 				if (leapTimer > leapTimeLimit)
 				{
+					leapTimer = 0;
                     //agent.transform.position = new Vector3(agent.transform.position.x, 0f, agent.transform.position.z);
                     catching.value = true;
 					leaping = false;

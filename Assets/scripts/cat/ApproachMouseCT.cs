@@ -9,6 +9,7 @@ namespace NodeCanvas.Tasks.Conditions {
 
 		public BBParameter<GameObject> mouse;
 		public BBParameter<bool> chasingMouse;
+		public BBParameter<bool> catchingMouse;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -31,8 +32,13 @@ namespace NodeCanvas.Tasks.Conditions {
 		protected override bool OnCheck() {
 
 
-			if (mouse.value != null)
+			if (mouse.value != null && mouse.value.activeInHierarchy)
 			{
+				if (catchingMouse.value)
+				{
+					return true;
+				}
+
 				float distance = (agent.transform.position - mouse.value.transform.position).magnitude;
 
 				if (distance < 10)

@@ -63,7 +63,6 @@ namespace NodeCanvas.Tasks.Actions {
                 chasingMouse.value = false;
                 mouse.value.SetActive(false);
                 catching.value = false;
-                mouse.value = null;
                 navAgent.value.enabled = true;
                 navAgent.value.isStopped = false;
                 navAgent.value.speed = 3.5f;
