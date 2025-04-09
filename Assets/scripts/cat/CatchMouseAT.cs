@@ -61,7 +61,7 @@ namespace NodeCanvas.Tasks.Actions {
 
             if (timer > jumpTime)
 			{
-                dialogText.GetComponent<TextMeshPro>().text = "Got you!";
+                dialogText.GetComponent<TextMeshPro>().text = "Meow! (Got you!)";
                 Debug.Log("not leaping");
                 chasingMouse.value = false;
                 mouse.value.SetActive(false);
