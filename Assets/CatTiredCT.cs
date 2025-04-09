@@ -5,12 +5,11 @@ using UnityEngine;
 
 namespace NodeCanvas.Tasks.Conditions {
 
-	public class ApproachMouseCT : ConditionTask {
+	public class CatTiredCT : ConditionTask {
 
-		public BBParameter<GameObject> mouse;
-		public BBParameter<bool> chasingMouse;
-		public BBParameter<bool> catchingMouse;
-		public GameObject dialogText;
+		public BBParameter<bool> sleeping;
+		public BBParameter<float> energy;
+		public float tiredLimit;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -31,32 +30,14 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Called once per frame while the condition is active.
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
-
-
-			if (mouse.value != null && mouse.value.activeInHierarchy)
+			if (sleeping.value || energy.value < tiredLimit)
 			{
-				if (catchingMouse.value || catchingMouse.value)
-				{
-					return true;
-				}
-
-				float distance = (agent.transform.position - mouse.value.transform.position).magnitude;
-
-				if (distance < 10)
-				{
-					chasingMouse.value = true;
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				return true;
 			}
 			else
 			{
 				return false;
 			}
-			
 		}
 	}
 }

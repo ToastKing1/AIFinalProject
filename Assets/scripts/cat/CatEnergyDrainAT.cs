@@ -1,19 +1,15 @@
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
-using TMPro;
 using UnityEngine;
 
 
 namespace NodeCanvas.Tasks.Actions {
 
-	public class SleepingAT : ActionTask {
+	public class CatEnergyDrainAT : ActionTask {
 
-		public BBParameter<bool> sleeping;
-        public BBParameter<Animator> animator;
 		public BBParameter<float> energy;
-		public float energyCharge;
-        public GameObject dialogText;
-		public string text;
+		public float energyDrain;
+		public BBParameter<bool> sleeping;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -25,21 +21,13 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-            animator.value.SetBool("Sleeping", true);
-            sleeping.value = true;
-			dialogText.GetComponent<TextMeshPro>().text = text;
 			
 		}
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
-			if (energy.value > 95f)
-			{
-				sleeping.value = false;
-				EndAction(true);
-			}
-
-			energy.value = Mathf.Clamp(energy.value + (energyCharge * Time.deltaTime), 0, 100);
+			if (!sleeping.value)
+			energy.value = Mathf.Clamp(energy.value - (energyDrain * Time.deltaTime), 0, 100);
 		}
 
 		//Called when the task is disabled.
