@@ -1,5 +1,6 @@
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,6 +16,7 @@ namespace NodeCanvas.Tasks.Actions {
         public BBParameter<bool> chasingMouse;
 		public BBParameter<NavMeshAgent> navAgent;
         Vector3 acceleration = new Vector3(0, 1f, 0);
+		public GameObject dialogText;
 
 		Vector3 leapDestination;
 
@@ -59,6 +61,7 @@ namespace NodeCanvas.Tasks.Actions {
 
             if (timer > jumpTime)
 			{
+                dialogText.GetComponent<TextMeshPro>().text = "Got you!";
                 Debug.Log("not leaping");
                 chasingMouse.value = false;
                 mouse.value.SetActive(false);

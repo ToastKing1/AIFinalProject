@@ -1,5 +1,6 @@
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using TMPro;
 using UnityEngine;
 
 
@@ -42,8 +43,9 @@ namespace NodeCanvas.Tasks.Conditions {
 
 				float distance = (agent.transform.position - mouse.value.transform.position).magnitude;
 
-				if (distance < 10)
+				if (distance < 10f)
 				{
+					dialogText.GetComponent<TextMeshPro>().text = "A mouse!";
 					chasingMouse.value = true;
 					return true;
 				}
