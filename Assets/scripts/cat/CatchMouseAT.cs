@@ -37,7 +37,9 @@ namespace NodeCanvas.Tasks.Actions {
 			//navAgent.value.enabled = false;
 			leapDestination = mouse.value.transform.position;
             navAgent.value.isStopped = false;
-            
+
+            catchCollision.value.SetActive(true);
+
             //agent.transform.position += acceleration * Time.deltaTime * 3;
         }
 
@@ -45,8 +47,6 @@ namespace NodeCanvas.Tasks.Actions {
 		protected override void OnUpdate() {
 
             animator.value.SetBool("Leaping", true);
-
-			Debug.Log("leaping");
 
 			/*if (timer < jumpTime / 2)
 			{
@@ -60,13 +60,12 @@ namespace NodeCanvas.Tasks.Actions {
 			navAgent.value.acceleration = 120f;
             navAgent.value.SetDestination(leapDestination);
 
-			catchCollision.value.SetActive(true);
+			
 
             if (timer > jumpTime)
 			{
                 dialogText.GetComponent<TextMeshPro>().text = "Meow! (Got you!)";
                 catchCollision.value.SetActive(false);
-                Debug.Log("not leaping");
                 chasingMouse.value = false;
                 catching.value = false;
                 navAgent.value.enabled = true;

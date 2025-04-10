@@ -24,11 +24,11 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-			if (navAgent.value.destination != sleepingSpot.value.position)
-			{
-				navAgent.value.SetDestination(sleepingSpot.value.position);
-			}
-            dialogText.GetComponent<TextMeshPro>().text = text;
+				if (navAgent.value.destination != sleepingSpot.value.position)
+				{
+					navAgent.value.SetDestination(sleepingSpot.value.position);
+				}
+				dialogText.GetComponent<TextMeshPro>().text = text;
             EndAction(true);
 		}
 

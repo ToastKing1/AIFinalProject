@@ -1,10 +1,13 @@
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using UnityEngine;
 
 
 namespace NodeCanvas.Tasks.Actions {
 
 	public class HitPotionAT : ActionTask {
+
+		public BBParameter<GameObject> potionToTravelTo;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -16,6 +19,9 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
+			potionToTravelTo.value.SetActive(false);
+			potionToTravelTo.value = null;
+
 			EndAction(true);
 		}
 

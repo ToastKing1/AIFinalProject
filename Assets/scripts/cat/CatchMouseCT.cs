@@ -12,10 +12,10 @@ namespace NodeCanvas.Tasks.Conditions {
 		public BBParameter<Animator> animator;
 		public float leapTimer = 0;
 		public float leapTimeLimit = 2;
-		public bool windup;
+		public BBParameter<bool> windup;
 		public float windupTimer;
 		public float windupTimeLimit;
-		public bool leaping;
+		public bool primed;
 		public BBParameter<bool> catching;
 		public BBParameter<GameObject> mouse;
 		public BBParameter<bool> chasingMouse;
@@ -45,30 +45,32 @@ namespace NodeCanvas.Tasks.Conditions {
 				return true;
 			}
 
-			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 4f && leaping == false && windup == false)
+			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 3f && primed == false && windup.value == false)
 			{
-				windup = true;
-				leaping = true;
+				windup.value = true;
             }
 
-			if (windup)
+			if (windup.value && !primed)
 			{
 				// make the cat move backwards while also looking at mouse
 				Vector3 directionFromMouse = agent.transform.position - mouse.value.transform.position;
 				Vector3 newDirection = agent.transform.position + directionFromMouse.normalized;
 				navAgent.value.SetDestination(newDirection);
 
-				windupTimer += 1 * Time.deltaTime;
+                Quaternion rotation = Quaternion.LookRotation(-directionFromMouse);
+                agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, rotation, 1f);
+
+                windupTimer += 1 * Time.deltaTime;
 
 				if (windupTimer > windupTimeLimit)
 				{
-					windup = false;
 					windupTimer = 0f;
 					navAgent.value.isStopped = true;
 					navAgent.value.speed = 3.5f;
+					primed = true;
                 }
             }
-			if (leaping)
+			if (primed)
 			{
 				//update rotation
 				if (!catching.value)
@@ -78,29 +80,17 @@ namespace NodeCanvas.Tasks.Conditions {
 					agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, rotation, 1f);
 				}
 
-                //agent.transform.position = new Vector3(agent.transform.position.x, -0.2f, agent.transform.position.z);
-                animator.value.SetBool("CatchingMouse", true);
-                /*if (navAgent.value.remainingDistance > 9f)
-				{
-					leaping = false;
-                    leapTimer = 0;
-                }*/
 				leapTimer += 1 * Time.deltaTime;
 
 				if (leapTimer > leapTimeLimit)
 				{
 					leapTimer = 0;
-                    //agent.transform.position = new Vector3(agent.transform.position.x, 0f, agent.transform.position.z);
                     catching.value = true;
-					leaping = false;
-                    animator.value.SetBool("CatchingMouse", false);
+                    windup.value = false;
+                    primed = false;
                     return true;
 				}
 			}
-			else
-			{
-                animator.value.SetBool("CatchingMouse", false);
-            }
 
 
 

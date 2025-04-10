@@ -1,6 +1,7 @@
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace NodeCanvas.Tasks.Conditions {
@@ -12,6 +13,9 @@ namespace NodeCanvas.Tasks.Conditions {
         public GameObject potion3;
         public GameObject potion4;
         public GameObject potion5;
+
+		public BBParameter<GameObject> potionToTravelTo;
+		public BBParameter<NavMeshAgent> navAgent;
 
         //Use for initialization. This is called only once in the lifetime of the task.
         //Return null if init was successfull. Return an error string otherwise
@@ -35,12 +39,37 @@ namespace NodeCanvas.Tasks.Conditions {
 
 			if (potion1.activeInHierarchy || potion2.activeInHierarchy || potion3.activeInHierarchy || potion4.activeInHierarchy || potion5.activeInHierarchy)
 			{
-                return true;
+				if (potion1.activeInHierarchy)
+				{
+					potionToTravelTo.value = potion1;
+				}
+				else if (potion2.activeInHierarchy)
+				{
+					potionToTravelTo.value = potion2;
+				}
+                else if (potion3.activeInHierarchy)
+                {
+                    potionToTravelTo.value = potion3;
+                }
+                else if (potion4.activeInHierarchy)
+                {
+                    potionToTravelTo.value = potion4;
+                }
+                else if (potion5.activeInHierarchy)
+                {
+                    potionToTravelTo.value = potion5;
+                }
+
+				if (potionToTravelTo.value != null)
+				{
+					navAgent.value.SetDestination(potionToTravelTo.value.transform.position);
+
+					return true;
+				}
             }
-			else
-			{
-				return false;
-			}
+
+			return false;
+			
 			
 		}
 	}

@@ -1,19 +1,17 @@
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
-using TMPro;
 using UnityEngine;
 
 
 namespace NodeCanvas.Tasks.Actions {
 
-	public class SleepingAT : ActionTask {
+	public class AnimationControlAT : ActionTask {
 
+		public BBParameter<Animator> animator;
+
+		public BBParameter<bool> catchingMouse;
+		public BBParameter<bool> leaping;
 		public BBParameter<bool> sleeping;
-        public BBParameter<Animator> animator;
-		public BBParameter<float> energy;
-		public float energyCharge;
-        public GameObject dialogText;
-		public string text;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -25,24 +23,41 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-            sleeping.value = true;
-			dialogText.GetComponent<TextMeshPro>().text = text;
-			
+			if (catchingMouse.value)
+			{
+                animator.value.SetBool("Windup", true);
+            }
+			else
+			{
+                animator.value.SetBool("Windup", false);
+            }
+			if (leaping.value)
+			{
+                animator.value.SetBool("Leaping", true);
+            }
+			else
+			{
+                animator.value.SetBool("Leaping", false);
+            }
+			if (sleeping.value)
+			{
+                animator.value.SetBool("Sleeping", true);
+            }
+			else
+			{
+                animator.value.SetBool("Sleeping", false);
+            }
+			EndAction(true);
 		}
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
-			if (energy.value > 95f)
-			{
-				sleeping.value = false;
-                EndAction(true);
-			}
-			Debug.Log("Sleeping");
-            energy.value = Mathf.Clamp(energy.value + (energyCharge * Time.deltaTime), 0, 100);
+			
 		}
 
 		//Called when the task is disabled.
 		protected override void OnStop() {
+			
 		}
 
 		//Called when the task is paused.

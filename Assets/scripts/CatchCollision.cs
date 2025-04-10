@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CatchCollision : MonoBehaviour
 {
-    public Collider collider;
 
     // Start is called before the first frame update
     void Start()
@@ -12,9 +12,12 @@ public class CatchCollision : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-       // if (collider.)
+        if (collision.gameObject.name == "Mouse")
+        {
+            SceneManager.LoadScene("MenuScene");
+        }
     }
+
 }
