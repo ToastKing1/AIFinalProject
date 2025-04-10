@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextBillboard : MonoBehaviour
+public class CatchCollision : MonoBehaviour
 {
-
-    public Camera camera;
+    public Collider collider;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +15,6 @@ public class TextBillboard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = camera.transform.rotation;
+       // if (collider.)
     }
 }

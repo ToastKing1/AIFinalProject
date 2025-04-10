@@ -15,6 +15,7 @@ namespace NodeCanvas.Tasks.Actions {
         public BBParameter<Animator> animator;
         public BBParameter<bool> chasingMouse;
 		public BBParameter<NavMeshAgent> navAgent;
+		public BBParameter<GameObject> catchCollision;
         Vector3 acceleration = new Vector3(0, 1f, 0);
 		public GameObject dialogText;
 
@@ -55,16 +56,18 @@ namespace NodeCanvas.Tasks.Actions {
 			{
                 agent.transform.position += acceleration * Time.deltaTime * -3;
             }*/
-			navAgent.value.speed = 10f;
-			navAgent.value.acceleration = 80f;
+			navAgent.value.speed = 15f;
+			navAgent.value.acceleration = 120f;
             navAgent.value.SetDestination(leapDestination);
+
+			catchCollision.value.SetActive(true);
 
             if (timer > jumpTime)
 			{
                 dialogText.GetComponent<TextMeshPro>().text = "Meow! (Got you!)";
+                catchCollision.value.SetActive(false);
                 Debug.Log("not leaping");
                 chasingMouse.value = false;
-                mouse.value.SetActive(false);
                 catching.value = false;
                 navAgent.value.enabled = true;
                 navAgent.value.isStopped = false;
