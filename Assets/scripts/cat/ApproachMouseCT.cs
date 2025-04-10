@@ -11,6 +11,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		public BBParameter<GameObject> mouse;
 		public BBParameter<bool> chasingMouse;
 		public BBParameter<bool> catchingMouse;
+		public BBParameter<Animator> animator;
 		public GameObject dialogText;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
