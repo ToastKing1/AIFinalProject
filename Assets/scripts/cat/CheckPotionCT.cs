@@ -38,7 +38,9 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Called once per frame while the condition is active.
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
-			// this is for the cat
+			// If any potions are missing/placed, this conditions checks if either AI needs to act upon that
+
+			// this is for the cat who checks for potions that are placed
 			if (!creatingPotions)
 			{
 				if (potion1.activeInHierarchy || potion2.activeInHierarchy || potion3.activeInHierarchy || potion4.activeInHierarchy || potion5.activeInHierarchy)
@@ -76,7 +78,7 @@ namespace NodeCanvas.Tasks.Conditions {
 					}
 				}
 			}
-			// this is for the sorcerer
+			// this is for the sorcerer who checks for missing potions
 			else if (creatingPotions)
 			{
 				if (!potion1.activeInHierarchy || !potion2.activeInHierarchy || !potion3.activeInHierarchy || !potion4.activeInHierarchy || !potion5.activeInHierarchy)

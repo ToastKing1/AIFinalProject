@@ -29,7 +29,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Called once per frame while the condition is active.
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
-			
+			// if the cat is close enough to the bed
 			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 1f)
 			{
 				return true;

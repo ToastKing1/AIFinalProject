@@ -21,6 +21,9 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
+
+			// this is to set a potion inactive
+
 			potionToTravelTo.value.SetActive(false);
 			potionToTravelTo.value = null;
             dialogText.GetComponent<TextMeshPro>().text = "";

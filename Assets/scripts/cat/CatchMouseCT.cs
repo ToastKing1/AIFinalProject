@@ -40,6 +40,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
 
+			// if the cat is already trying to leap at the mouse, return true
 			if (catching.value)
 			{
 				return true;
@@ -47,6 +48,7 @@ namespace NodeCanvas.Tasks.Conditions {
 
 			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 3f && primed == false && windup.value == false)
 			{
+				// if the mouse is close enough, the cat will wind up
 				windup.value = true;
             }
 
@@ -57,6 +59,8 @@ namespace NodeCanvas.Tasks.Conditions {
 				Vector3 newDirection = agent.transform.position + directionFromMouse.normalized;
 				navAgent.value.SetDestination(newDirection);
 
+
+				// rotate the cat towards the mouse
                 Quaternion rotation = Quaternion.LookRotation(-directionFromMouse);
                 agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, rotation, 1f);
 
@@ -80,10 +84,13 @@ namespace NodeCanvas.Tasks.Conditions {
 					agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, rotation, 1f);
 				}
 
+
+				// a timer to build up while the cat is primed to leap at mouse
 				leapTimer += 1 * Time.deltaTime;
 
 				if (leapTimer > leapTimeLimit)
 				{
+					// cat is no longer winding up and is launching
 					leapTimer = 0;
                     catching.value = true;
                     windup.value = false;

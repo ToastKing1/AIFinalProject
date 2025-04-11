@@ -26,6 +26,7 @@ namespace NodeCanvas.Tasks.Actions {
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
+			// if the cat is awake, the cat will slowly lose energy and need to nap eventually
 			if (!sleeping.value)
 			energy.value = Mathf.Clamp(energy.value - (energyDrain * Time.deltaTime), 0, 100);
 		}

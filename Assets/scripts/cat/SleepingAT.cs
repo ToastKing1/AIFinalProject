@@ -32,6 +32,7 @@ namespace NodeCanvas.Tasks.Actions {
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
+			// the cat regains energy until it is near maxxed out
 			if (energy.value > 95f)
 			{
 				sleeping.value = false;

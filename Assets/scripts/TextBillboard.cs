@@ -16,6 +16,7 @@ public class TextBillboard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // makes the text face the camera
         transform.rotation = camera.transform.rotation;
     }
 }

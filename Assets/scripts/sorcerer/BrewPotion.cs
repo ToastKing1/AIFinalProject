@@ -28,6 +28,9 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
+
+			//timer is randomized and the destination is set
+
 			navAgent.value.SetDestination(brewingStation.value.position);
 			timer = 0f;
 			timeLimit = Random.Range(timeLimitMin, timeLimitMax + 1);
@@ -35,6 +38,9 @@ namespace NodeCanvas.Tasks.Actions {
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
+			// if the sorcerer is at the brewing station, it runs a timer
+			// when the timer ends it gives him three potions
+
 			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 0.5f)
 			{
 				timer += 1 * Time.deltaTime;

@@ -32,9 +32,10 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Called once per frame while the condition is active.
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
+			// if the potions exists and the AI is close enough, return true
 			if (potionToTravelTo.value != null)
 			{
-				if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 1.5f)
+				if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 0.5f)
 				{
 					return true;
 				}

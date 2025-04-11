@@ -24,6 +24,7 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
+			// this is to set the cat to travel to its bed, but it can be used to any location
 				if (navAgent.value.destination != sleepingSpot.value.position)
 				{
 					navAgent.value.SetDestination(sleepingSpot.value.position);

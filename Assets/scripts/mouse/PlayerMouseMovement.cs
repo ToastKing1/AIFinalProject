@@ -19,6 +19,8 @@ public class PlayerMouseMovement : MonoBehaviour
     void Update()
     {
 
+        // extremely basic player movement
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = sprintSpeed;

@@ -21,7 +21,7 @@ namespace NodeCanvas.Tasks.Actions {
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
 
-			//random spot
+			//cat travels to a random spot nearby
 
 			Vector2 randomSpot = new Vector2(agent.transform.position.x + Random.Range(-4, 4), agent.transform.position.y + Random.Range(-4, 4));
 

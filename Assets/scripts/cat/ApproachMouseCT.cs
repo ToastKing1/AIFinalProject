@@ -39,7 +39,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		protected override bool OnCheck() {
 
 
-			if (mouse.value != null && mouse.value.activeInHierarchy)
+			if (mouse.value != null && mouse.value.activeInHierarchy) // this is to check if the mouse exists
 			{
 				if (chasingMouse.value || catchingMouse.value || potionToTravelTo.value != null)
 				{
@@ -48,13 +48,13 @@ namespace NodeCanvas.Tasks.Conditions {
 
 				float distance = (agent.transform.position - mouse.value.transform.position).magnitude;
 
-				if (distance < 7.5f && !sleeping.value)
+				if (distance < 7.5f && !sleeping.value) // the cat's distance to check for the mouse
 				{
 					dialogText.GetComponent<TextMeshPro>().text = "Meow! (A mouse!)";
 					chasingMouse.value = true;
 					return true;
 				}
-				else if (distance < 4f && sleeping.value)
+				else if (distance < 4f && sleeping.value) // if the cat is asleep, the checking distance is lower
 				{
 					sleeping.value = false;
                     dialogText.GetComponent<TextMeshPro>().text = "Meow! (A mouse!)";

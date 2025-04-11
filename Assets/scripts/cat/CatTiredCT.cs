@@ -30,6 +30,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Called once per frame while the condition is active.
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
+			// if the cat is tired, this will return true
 			if (sleeping.value || energy.value < tiredLimit)
 			{
 				return true;

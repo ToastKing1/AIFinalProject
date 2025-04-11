@@ -14,6 +14,7 @@ public class CatchCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // if the mouse collides with the collision, the scene is set to the menu
         if (collision.gameObject.name == "Mouse")
         {
             SceneManager.LoadScene("MenuScene");

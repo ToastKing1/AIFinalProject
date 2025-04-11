@@ -34,13 +34,11 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-			//navAgent.value.enabled = false;
 			leapDestination = mouse.value.transform.position;
             navAgent.value.isStopped = false;
-
+			// the catch collision is the collision to destroy the mouse
             catchCollision.value.SetActive(true);
 
-            //agent.transform.position += acceleration * Time.deltaTime * 3;
         }
 
 		//Called once per frame while the action is active.
@@ -48,28 +46,23 @@ namespace NodeCanvas.Tasks.Actions {
 
             animator.value.SetBool("Leaping", true);
 
-			/*if (timer < jumpTime / 2)
-			{
-				agent.transform.position += acceleration * Time.deltaTime * 3;
-			}
-			else
-			{
-                agent.transform.position += acceleration * Time.deltaTime * -3;
-            }*/
-			navAgent.value.speed = 15f;
-			navAgent.value.acceleration = 120f;
+			// the cat will leap extremely fast but in a very short duration
+			navAgent.value.speed = 12.5f;
+			navAgent.value.acceleration = 80f;
             navAgent.value.SetDestination(leapDestination);
 
 			
 
             if (timer > jumpTime)
 			{
+				// reset all variables when the leap is finished
                 dialogText.GetComponent<TextMeshPro>().text = "";
                 catchCollision.value.SetActive(false);
                 chasingMouse.value = false;
                 catching.value = false;
                 navAgent.value.enabled = true;
                 navAgent.value.isStopped = false;
+				navAgent.value.velocity = new Vector3(0,0,0);
                 navAgent.value.speed = 3.5f;
                 navAgent.value.acceleration = 8f;
                 animator.value.SetBool("Leaping", false);

@@ -23,6 +23,8 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
+
+			// instead of scripts individually setting the animation bools, I personally found it easier to set the all here
 			if (catchingMouse.value)
 			{
                 animator.value.SetBool("Windup", true);
