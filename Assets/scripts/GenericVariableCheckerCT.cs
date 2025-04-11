@@ -29,14 +29,14 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Called once per frame while the condition is active.
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
-			if (GenericVariable.value == checkVariable)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+            if (GenericVariable.value == checkVariable)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 	}
 }

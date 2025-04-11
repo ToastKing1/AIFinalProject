@@ -11,6 +11,7 @@ namespace NodeCanvas.Tasks.Actions {
 		public BBParameter<NavMeshAgent> navAgent;
 		public BBParameter<bool> hasPotion;
 		public BBParameter<Transform> brewingStation;
+		public BBParameter<int> amountOfPotions;
 
 		public float timer;
 		public float timeLimit;
@@ -34,13 +35,14 @@ namespace NodeCanvas.Tasks.Actions {
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
-			if (navAgent.value.pathPending && navAgent.value.remainingDistance < 0.5f)
+			if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 0.5f)
 			{
 				timer += 1 * Time.deltaTime;
 
 
 				if (timer > timeLimit)
 				{
+					amountOfPotions.value = 3;
 					hasPotion.value = true;
 					EndAction(true);
 				}

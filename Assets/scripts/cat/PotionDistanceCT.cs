@@ -34,7 +34,7 @@ namespace NodeCanvas.Tasks.Conditions {
 		protected override bool OnCheck() {
 			if (potionToTravelTo.value != null)
 			{
-				if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 1f)
+				if (!navAgent.value.pathPending && navAgent.value.remainingDistance < 1.5f)
 				{
 					return true;
 				}

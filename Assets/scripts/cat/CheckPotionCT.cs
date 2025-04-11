@@ -17,6 +17,8 @@ namespace NodeCanvas.Tasks.Conditions {
 		public BBParameter<GameObject> potionToTravelTo;
 		public BBParameter<NavMeshAgent> navAgent;
 
+		public bool creatingPotions;
+
         //Use for initialization. This is called only once in the lifetime of the task.
         //Return null if init was successfull. Return an error string otherwise
         protected override string OnInit(){
@@ -36,40 +38,86 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Called once per frame while the condition is active.
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
-
-			if (potion1.activeInHierarchy || potion2.activeInHierarchy || potion3.activeInHierarchy || potion4.activeInHierarchy || potion5.activeInHierarchy)
+			// this is for the cat
+			if (!creatingPotions)
 			{
-				if (potion1.activeInHierarchy)
+				if (potion1.activeInHierarchy || potion2.activeInHierarchy || potion3.activeInHierarchy || potion4.activeInHierarchy || potion5.activeInHierarchy)
 				{
-					potionToTravelTo.value = potion1;
+					if (potion1.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion1;
+					}
+					else if (potion2.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion2;
+					}
+					else if (potion3.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion3;
+					}
+					else if (potion4.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion4;
+					}
+					else if (potion5.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion5;
+					}
+
+					if (potionToTravelTo.value != null)
+					{
+						navAgent.value.SetDestination(potionToTravelTo.value.transform.position);
+
+						return true;
+					}
+					else
+					{
+						return false;
+					}
 				}
-				else if (potion2.activeInHierarchy)
+			}
+			// this is for the sorcerer
+			else if (creatingPotions)
+			{
+				if (!potion1.activeInHierarchy || !potion2.activeInHierarchy || !potion3.activeInHierarchy || !potion4.activeInHierarchy || !potion5.activeInHierarchy)
 				{
-					potionToTravelTo.value = potion2;
+					if (!potion1.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion1;
+					}
+					else if (!potion2.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion2;
+					}
+					else if (!potion3.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion3;
+					}
+					else if (!potion4.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion4;
+					}
+					else if (!potion5.activeInHierarchy)
+					{
+						potionToTravelTo.value = potion5;
+					}
+
+					if (potionToTravelTo.value != null)
+					{
+						navAgent.value.SetDestination(potionToTravelTo.value.transform.position);
+
+						return true;
+					}
+					else
+					{
+						return false;
+					}
 				}
-                else if (potion3.activeInHierarchy)
-                {
-                    potionToTravelTo.value = potion3;
-                }
-                else if (potion4.activeInHierarchy)
-                {
-                    potionToTravelTo.value = potion4;
-                }
-                else if (potion5.activeInHierarchy)
-                {
-                    potionToTravelTo.value = potion5;
-                }
+			}
 
-				if (potionToTravelTo.value != null)
-				{
-					navAgent.value.SetDestination(potionToTravelTo.value.transform.position);
-
-					return true;
-				}
-            }
-
-			return false;
-			
+            return false;
+            
+				
 			
 		}
 	}

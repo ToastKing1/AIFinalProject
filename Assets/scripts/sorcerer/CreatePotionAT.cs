@@ -8,6 +8,8 @@ namespace NodeCanvas.Tasks.Actions {
 	public class CreatePotionAT : ActionTask {
 
         public BBParameter<GameObject> potionToTravelTo;
+		public BBParameter<bool> hasPotions;
+		public BBParameter<int> amountOfPotions;
 
         //Use for initialization. This is called only once in the lifetime of the task.
         //Return null if init was successfull. Return an error string otherwise
@@ -19,9 +21,17 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-            potionToTravelTo.value.SetActive(true);
-            potionToTravelTo.value = null;
+			if (amountOfPotions.value != 0)
+			{
+				amountOfPotions.value = Mathf.Clamp(amountOfPotions.value - 1, 0, 3);
+				potionToTravelTo.value.SetActive(true);
+				potionToTravelTo.value = null;
+			}
 
+			if (amountOfPotions.value <= 0)
+			{
+				hasPotions.value = false;
+			}
 
             EndAction(true);
 		}
