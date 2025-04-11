@@ -1,19 +1,21 @@
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
-using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace NodeCanvas.Tasks.Actions {
 
-	public class SleepingAT : ActionTask {
+	public class BrewPotion : ActionTask {
 
-		public BBParameter<bool> sleeping;
-        public BBParameter<Animator> animator;
-		public BBParameter<float> energy;
-		public float energyCharge;
-        public GameObject dialogText;
-		public string text;
+		public BBParameter<NavMeshAgent> navAgent;
+		public BBParameter<bool> hasPotion;
+		public BBParameter<Transform> brewingStation;
+
+		public float timer;
+		public float timeLimit;
+		public float timeLimitMin;
+		public float timeLimitMax;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -25,23 +27,30 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-            sleeping.value = true;
-			dialogText.GetComponent<TextMeshPro>().text = text;
-			
+			navAgent.value.SetDestination(brewingStation.value.position);
+			timer = 0f;
+			timeLimit = Random.Range(timeLimitMin, timeLimitMax + 1);
 		}
 
 		//Called once per frame while the action is active.
 		protected override void OnUpdate() {
-			if (energy.value > 95f)
+			if (navAgent.value.pathPending && navAgent.value.remainingDistance < 0.5f)
 			{
-				sleeping.value = false;
-                EndAction(true);
+				timer += 1 * Time.deltaTime;
+
+
+				if (timer > timeLimit)
+				{
+					hasPotion.value = true;
+					EndAction(true);
+				}
 			}
-            energy.value = Mathf.Clamp(energy.value + (energyCharge * Time.deltaTime), 0, 100);
+			
 		}
 
 		//Called when the task is disabled.
 		protected override void OnStop() {
+			
 		}
 
 		//Called when the task is paused.

@@ -64,7 +64,7 @@ namespace NodeCanvas.Tasks.Actions {
 
             if (timer > jumpTime)
 			{
-                dialogText.GetComponent<TextMeshPro>().text = "Meow! (Got you!)";
+                dialogText.GetComponent<TextMeshPro>().text = "";
                 catchCollision.value.SetActive(false);
                 chasingMouse.value = false;
                 catching.value = false;
